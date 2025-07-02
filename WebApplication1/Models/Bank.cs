@@ -9,6 +9,6 @@ namespace WebApplication1.Models
         [Key] 
        public int BankID { get; set; }
         [Column(TypeName ="nvarchar(100)")]
-        public string BankName { get; set; }
+        public required string BankName { get; set; }
     }
 }
