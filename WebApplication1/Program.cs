@@ -4,6 +4,15 @@ using WebApplication1.Models; // Make sure this matches your project namespace
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularClient", builder =>
+    {
+        builder.WithOrigins("http://localhost:4200")
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
 
 
 
@@ -20,6 +29,8 @@ builder.Services.AddDbContext<APIDBContext>(options =>
 
 var app = builder.Build();
 
+
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -30,6 +41,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseAuthorization();
+
+
+app.UseCors("AllowAngularClient");
 
 app.MapControllers(); // This maps API controllers
 
